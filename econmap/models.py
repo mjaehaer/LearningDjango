@@ -3,7 +3,9 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from pytz import unicode
+from django.urls.resolvers import reverse
 from transliterate import translit
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -26,6 +28,10 @@ def image_folder(instance, filename):
     filename = instance.slug + '.' + filename.split('.')[1]
     return "{}/{}".format(instance.slug, filename)
 
+class ProductManager(models.Manager):
+    def all(self, *args, **kwargs):
+        return super(ProductManager, self).get_queryset().filter(available=True)
+
 class Product(models.Model):
 
     category = models.ForeignKey(
@@ -42,8 +48,12 @@ class Product(models.Model):
     image = models.ImageField(upload_to=image_folder)
     price = models.DecimalField(max_digits=9, decimal_places=2)
     available = models.BooleanField(default=True)
+    objects = ProductManager()
 
     def __str__(self):
         return(self.title)
+
+    def get_absolut_url(self):
+        return
 
 

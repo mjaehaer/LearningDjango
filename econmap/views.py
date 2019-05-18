@@ -12,3 +12,10 @@ def base_view(request):
         'products': products,
     }
     return render(request, 'base.html', context)
+
+def product_view(request, product_slug):
+    product = product.objects.get(slug=product_slug)
+    context = {
+        'product': product
+    }
+    return render(request, )
