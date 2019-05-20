@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from pytz import unicode
-from django.urls.resolvers import reverse
+from django.urls import reverse
 from transliterate import translit
 
 
@@ -12,6 +12,9 @@ class Category(models.Model):
     slug = models.SlugField(blank=True)
     def __str__(self):
         return(self.name)
+
+    def get_absolut_url(self):
+        return reverse('category_detail', kwargs={'category_slug': self.slug})
 
 def pre_save_category_slug(sender, instance, *args, **kwargs):
     if not instance.slug:
@@ -54,6 +57,6 @@ class Product(models.Model):
         return(self.title)
 
     def get_absolut_url(self):
-        return
+        return reverse('product_detail', kwargs={'product_slug': self.slug})
 
 
