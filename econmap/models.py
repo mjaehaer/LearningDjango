@@ -60,3 +60,6 @@ class Product(models.Model):
         return reverse('product_detail', kwargs={'product_slug': self.slug})
 
 
+
+
+
