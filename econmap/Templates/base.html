@@ -82,22 +82,24 @@
 
                     <div class="col-md-12">
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            </ol>
+
                             <div class="carousel-inner">
                                 {% for product in products %}
                                     {% if forloop.first %}
                                 <div class="item active">
                                     <img class="slide-image" src="{{ product.image.url }}" alt=""
-                                         style="padding-left: 250px; height: 300px;">
+                                         style="padding-left: 250px; height: 400px;">
+                                    <br>
+                                        <p class="text-center"><a href="{{ product.get_absolut_url }}">
+                                            <button class="btn btn-primary">{{ product.title }}</button></a></p>
                                 </div>
                                     {% else %}
                                 <div class="item">
                                     <img class="slide-image" src="{{ product.image.url }}" alt=""
-                                    style="padding-left: 250px; height: 300px;">
+                                    style="padding-left: 250px; height: 400px;">
+                                    <br>
+                                <p class="text-center"><a href="{{ product.get_absolut_url }}">
+                                    <button class="btn btn-primary">{{ product.title }}</button></a></p>
                                 </div>
                                     {% endif %}
                                 {% endfor %}
@@ -119,6 +121,7 @@
                         <div class="thumbnail">
                             <img src={{ product.image.url }} alt="" style='width:80%; height: 250px;'>
                             <div class="caption">
+                                <br>
                                 <h4 class="pull-right"> {{ product.price }} руб.</h4>
                                 <h4><a href="{{ product.get_absolut_url }}"> {{ product.title }}</a>
                                 </h4>
